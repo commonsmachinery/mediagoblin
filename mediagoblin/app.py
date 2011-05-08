@@ -114,8 +114,11 @@ class MediaGoblinApp(object):
 
 def paste_app_factory(global_config, **app_config):
     # Get the database connection
+    port = app_config.get('db_port')
+    if port:
+        port = int(port)
     connection = mongokit.Connection(
-        app_config.get('db_host'), app_config.get('db_port'))
+        app_config.get('db_host'), port)
 
     # Set up the storage systems.
     public_store = storage.storage_system_from_paste_config(
