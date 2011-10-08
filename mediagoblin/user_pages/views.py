@@ -231,6 +231,7 @@ def media_favorite(request):
         media = request.matchdict['media'],
         user = request.matchdict['user'])
 
+ATOM_DEFAULT_NR_OF_UPDATED_ITEMS = 15
 
 def atom_feed(request):
     """

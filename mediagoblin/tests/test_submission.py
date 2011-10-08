@@ -168,6 +168,7 @@ class TestSubmission:
 
         media = request.db.MediaEntry.find({'title': 'Balanced Goblin'})[0]
 
+        # Does media entry exist?
         assert_true(media)
 
         # Do not confirm deletion
