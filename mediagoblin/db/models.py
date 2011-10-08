@@ -158,6 +158,8 @@ class MediaEntry(Document):
         "unprocessed": uploaded but needs to go through processing for display
         "processed": processed and able to be displayed
 
+     - favorites: Number of times a user has marked this media as a favorite.
+
      - queued_media_file: storage interface style filepath describing a file
        queued for processing.  This is stored in the mg_globals.queue_store
        storage system.
@@ -189,6 +191,7 @@ class MediaEntry(Document):
         'plugin_data': dict, # plugins can dump stuff here.
         'tags': [dict],
         'state': unicode,
+        'favorites': int,
 
         # For now let's assume there can only be one main file queued
         # at a time
@@ -212,7 +215,8 @@ class MediaEntry(Document):
 
     default_values = {
         'created': datetime.datetime.utcnow,
-        'state': u'unprocessed'}
+        'state': u'unprocessed',
+        'favorites': 0}
 
     def get_comments(self):
         return self.db.MediaComment.find({
@@ -339,11 +343,34 @@ class MediaComment(Document):
     def author(self):
         return self.db.User.find_one({'_id': self['author']})
 
+class UserFavorite(Document):
+    """
+    A user's selection of a MediaEntry as a favorite
+
+    Structure:
+     - user: The User who favorited the MediaEntry
+     - media_entry: The MediaEntry favorited
+     - created: When the MediaEntry was favorited
+    """
+
+    __collection__ = 'user_favorites'
+
+    structure = {
+        'user': ObjectId,
+        'media_entry': ObjectId,
+        'created': datetime.datetime
+        }
+
+    required_fields = ['user', 'media_entry', 'created']
+
+    default_values = {
+        'created': datetime.datetime.utcnow}
 
 REGISTER_MODELS = [
     MediaEntry,
     User,
-    MediaComment]
+    MediaComment,
+    UserFavorite]
 
 
 def register_models(connection):

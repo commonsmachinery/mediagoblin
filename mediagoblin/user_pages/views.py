@@ -114,11 +114,26 @@ def media_home(request, media, page, **kwargs):
 
     comment_form = user_forms.MediaCommentForm(request.POST)
 
+    # See if the user has favorited this media
+    user = request.db.User.find_one({
+            'username': request.matchdict['user']})
+
+    has_favorited = False
+
+    if request.user:
+        cursor = request.db.UserFavorite.find(
+            {'user': request.user['_id'],
+             'media_entry': ObjectId(media['_id'])})
+
+        if cursor.count() > 0:
+            has_favorited = True
+
     return render_to_response(
         request,
         'mediagoblin/user_pages/media.html',
         {'media': media,
          'comments': comments,
+         'has_favorited': has_favorited,
          'pagination': pagination,
          'comment_form': comment_form,
          'app_config': mg_globals.app_config})
@@ -182,8 +197,40 @@ def media_confirm_delete(request, media):
         {'media': media,
          'form': form})
 
+@require_active_login
+def media_favorite(request):
+    """
+    Marks media as a favorite of user
+    """
 
-ATOM_DEFAULT_NR_OF_UPDATED_ITEMS = 15
+    # Get the MediaEntry
+    media_entry_id = ObjectId(request.matchdict['media'])
+    media_entry = request.db.MediaEntry.find_one({'_id': media_entry_id})
+
+    # See if this user has already favorited this media
+    existing_entry = request.db.UserFavorite.find_one({'media_entry': media_entry_id, 
+                                                       'user': request.user['_id']})
+
+    # If the user hasn't already favorited this, create a UserFavorite
+    # instance and increment the entry's favorites count
+    if not existing_entry:
+        user_favorite = request.db.UserFavorite()
+        user_favorite['media_entry'] = media_entry_id
+        user_favorite['user'] = request.user['_id']
+        user_favorite.save()
+
+        request.db['media_entries'].update( { '_id': media_entry_id }, { '$inc' : { 'favorites' : 1 } } )
+
+    # If the user has favorited it, unfavorite it
+    else:
+        existing_entry.delete()
+
+        request.db['media_entries'].update( { '_id': media_entry_id }, { '$inc' : { 'favorites' : -1 } } )
+
+    return redirect(request, 'mediagoblin.user_pages.media_home',
+        media = request.matchdict['media'],
+        user = request.matchdict['user'])
+
 
 def atom_feed(request):
     """

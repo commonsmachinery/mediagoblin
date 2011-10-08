@@ -168,7 +168,6 @@ class TestSubmission:
 
         media = request.db.MediaEntry.find({'title': 'Balanced Goblin'})[0]
 
-        # Does media entry exist?
         assert_true(media)
 
         # Do not confirm deletion
@@ -267,3 +266,76 @@ class TestSubmission:
         assert_equal(
             entry['fail_error'],
             u'mediagoblin.process_media.errors:BadMediaFail')
+
+    def test_favorite(self):
+        template.clear_test_template_context()
+        response = self.test_app.post(
+            '/submit/', {
+                'title': 'Balanced Goblin',
+                }, upload_files=[(
+                    'file', GOOD_JPG)])
+
+        # Post image
+        response.follow()
+
+        request = template.TEMPLATE_TEST_CONTEXT[
+            'mediagoblin/user_pages/user.html']['request']
+
+        media = request.db.MediaEntry.find({'title': 'Balanced Goblin'})[0]
+
+        # Does media entry exist?
+        assert_true(media)
+
+        # Favorite the media
+        # ---------------------------------------------------
+        response = self.test_app.post(
+            request.urlgen('mediagoblin.user_pages.media_favorite',
+                           user=self.test_user['username'],
+                           media=media['_id']),
+            # no value means no confirm
+            {})
+
+        response.follow()
+
+        request = template.TEMPLATE_TEST_CONTEXT[
+            'mediagoblin/user_pages/user.html']['request']
+
+        # Confirm database update
+        # ---------------------------------------------------
+
+        # Does favorite entry still exist?
+        assert_true(
+            request.db.UserFavorite.find(
+                {'media_entry': media['_id'], 'user':self.test_user['_id']}).count())
+
+        # Was the favorite count incremented?
+        media = request.db.MediaEntry.find({'title': 'Balanced Goblin'})[0]
+
+        assert_equal(media['favorites'], 1)
+
+        # Unfavorite the media
+        # ---------------------------------------------------
+        response = self.test_app.post(
+            request.urlgen('mediagoblin.user_pages.media_favorite',
+                           user=self.test_user['username'],
+                           media=media['_id']),
+            # no value means no confirm
+            {})
+
+        response.follow()
+
+        request = template.TEMPLATE_TEST_CONTEXT[
+            'mediagoblin/user_pages/user.html']['request']
+
+        # Confirm database update
+        # ---------------------------------------------------
+
+        # Does media entry still exist? 
+        assert_false(
+            request.db.UserFavorite.find(
+                {'media_entry': media['_id'], 'user':self.test_user['_id']}).count())
+
+        # Was the favorite count decremented?
+        media = request.db.MediaEntry.find({'title': 'Balanced Goblin'})[0]
+
+        assert_equal(media['favorites'], 0)

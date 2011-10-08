@@ -164,6 +164,18 @@
         </p>
       {% endif %}
 
+	<form action="{{ request.urlgen('mediagoblin.user_pages.media_favorite',
+                                    user= media.uploader().username,
+                                    media= media._id) }}" method="POST">
+      {% if has_favorited %}
+          <input id="favorite_button" type="submit" value="<3" />
+      {% else %}
+          <input id="favorite_button" type="submit" value="<3?" />
+      {% endif %}
+        ({{ media.favorites }})
+	{{ csrf_token }}
+	</form>
+
       {% if media.tags %}
         {% include "mediagoblin/utils/tags.html" %}
       {% endif %}

@@ -107,3 +107,13 @@ def user_add_forgot_password_token_and_expires(database):
          {'fp_token_expire': {'$exists': False}},
          {'$set': {'fp_token_expire': None}},
          multi=True)
+
+@RegisterMigration(7)
+def media_entry_add_favorites(database):
+    """
+    Adds 'favorites' count to media entry
+    """
+    database['media_entries'].update(
+        {'favorites': {'$exists': False}},
+        {'$set': {'favorites': 0}},
+        multi=True)
