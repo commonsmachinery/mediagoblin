@@ -43,4 +43,10 @@ user_routes = [
     Route('mediagoblin.user_pages.processing_panel',
           '/{user}/panel/',
           controller="mediagoblin.user_pages.views:processing_panel"),
+    Route('mediagoblin.user_pages.listings.tags_listing', 
+          '/{user}/tag/{tag}', 
+          controller="mediagoblin.user_pages.listings.views:tag_listing"),
+    Route('mediagoblin.user_pages.listings.tag_atom_feed', 
+          '/{user}/tag/{tag}/atom/', 
+          controller="mediagoblin.listings.views:tag_atom_feed")
     ]

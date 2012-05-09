@@ -22,17 +22,17 @@
 {% block mediagoblin_head %}
     <link rel="alternate" type="application/atom+xml"
           href="{{ request.urlgen(
-                       'mediagoblin.listings.tag_atom_feed',
-                       tag=tag_slug) }}">
+                        'mediagoblin.listings.tag_atom_feed',
+                        tag=tag_slug) }}">
 {% endblock mediagoblin_head %}
 
 {% block title %}
-  {% trans %}Media tagged with: {{ tag_name }}{% endtrans %} &mdash; {{ super() }}
+   {% trans %}Media tagged with: {{ tag_name }} {% endtrans %} &mdash; {{ super() }}
 {% endblock %}
 
 {% block mediagoblin_content -%}
   <h1>
-    {% trans %}Media tagged with: {{ tag_name }}{% endtrans %}
+    {% trans %}Media tagged with: {{ tag_name }} {% endtrans %}
   </h1>
 
   {{ object_gallery(request, media_entries, pagination) }}

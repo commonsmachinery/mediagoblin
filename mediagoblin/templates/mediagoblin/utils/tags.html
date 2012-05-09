@@ -26,15 +26,17 @@
           &middot;
         {% endif %}
         <a href="{{ request.urlgen(
-                          'mediagoblin.listings.tags_listing',
+                          'mediagoblin.user_pages.listings.tags_listing',
+                          user = media.get_uploader.username,
                           tag=tag['slug']) }}">{{ tag['name'] }}</a>
       {% elif loop.revindex == 2 %}
         <a href="{{ request.urlgen(
-                          'mediagoblin.listings.tags_listing',
+                          'mediagoblin.user_pages.listings.tags_listing',
+                          user = media.get_uploader.username,
                           tag=tag['slug']) }}">{{ tag['name'] }}</a> 
       {% else %}
         <a href="{{ request.urlgen(
-                          'mediagoblin.listings.tags_listing',
+                          'mediagoblin.user_pages.listings.tags_listing',
                           tag=tag['slug']) }}">{{ tag['name'] }}</a> &middot;
       {% endif %}
     {% endfor %}
