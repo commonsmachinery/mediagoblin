@@ -96,7 +96,7 @@ Software Stack
 * Media processing libraries:
 
   * `Python Imaging Library <http://www.pythonware.com/products/pil/>`_:
-    Used to re-size and otherwise convert images for display.
+    Used to resize and otherwise convert images for display.
 
   * `GStreamer <http://gstreamer.freedesktop.org/>`_: (*Optional.*),
     Used to transcode video and audio. Only required if your
