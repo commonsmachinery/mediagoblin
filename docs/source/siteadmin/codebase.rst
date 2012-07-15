@@ -42,92 +42,102 @@ Software Stack
 
 * Project infrastructure
 
-  * `Python <http://python.org/>`_: the language we're using to write
-    this
+  * `Python <http://python.org/>`_: MediaGoblin is written in Python,
+    and supports the 2.6 and 2.7 series of Python.
 
-  * `Nose <http://somethingaboutorange.com/mrl/projects/nose/>`_:
-    for unit tests
+  * `Nose <http://somethingaboutorange.com/mrl/projects/nose/>`_: The
+    unit testing framework.
 
-  * `virtualenv <http://www.virtualenv.org/>`_: for setting up an
-    isolated environment to keep mediagoblin and related packages
-    (potentially not required if MediaGoblin is packaged for your
-    distro)
+  * `virtualenv <http://www.virtualenv.org/>`_: (*Optional.*) Creates
+    an isolated environment for MediaGoblin and its
+    dependencies. [#virtualenv-note]_
 
 * Data storage
 
   * `SQLAlchemy <http://sqlalchemy.org/>`_: SQL ORM and database
-    interaction library for Python. Currently we support sqlite and
-    postgress as backends.
+    interaction library for Python.
+
+  * Database: Currently MediaGoblin supports SQLite and PostgreSQL
+    backends.
 
 * Web application
 
-  * `Paste Deploy <http://pythonpaste.org/deploy/>`_ and
-    `Paste Script <http://pythonpaste.org/script/>`_: we'll use this for
-    configuring and launching the application
+  * `Paste Deploy <http://pythonpaste.org/deploy/>`_ and `Paste Script
+    <http://pythonpaste.org/script/>`_: Used for configuring and
+    launching the application.
 
-  * `WebOb <http://pythonpaste.org/webob/>`_: nice abstraction layer
-    from HTTP requests, responses and WSGI bits
+  * `WebOb <http://pythonpaste.org/webob/>`_: Provides an
+    interface/abstraction for HTTP requests and WSGI.
 
-  * `Routes <http://routes.groovie.org/>`_: for URL routing
+  * `Routes <http://routes.groovie.org/>`_: Used for URL routing.
 
-  * `Beaker <http://beaker.groovie.org/>`_: for handling sessions and
-    caching
+  * `Beaker <http://beaker.groovie.org/>`_: Provides session handling
+    and caching.
 
-  * `Jinja2 <http://jinja.pocoo.org/docs/>`_: the templating engine
+  * `Jinja2 <http://jinja.pocoo.org/docs/>`_: The template engine.
 
-  * `WTForms <http://wtforms.simplecodes.com/>`_: for handling,
-    validation, and abstraction from HTML forms
+  * `WTForms <http://wtforms.simplecodes.com/>`_: Provides validation,
+    handling, and abstraction handling, for HTML forms.
 
-  * `Celery <http://celeryproject.org/>`_: for task queuing (resizing
-    images, encoding video, ...)
+  * `Celery <http://celeryproject.org/>`_: Provides task queuing for
+    potentially long running tasks like resizing images, and encoding
+    video and audio.
 
   * `Babel <http://babel.edgewall.org>`_: Used to extract and compile
     translations.
 
   * `Markdown (for python) <http://pypi.python.org/pypi/Markdown>`_:
     implementation of `Markdown <http://daringfireball.net/projects/markdown/>`_
-    text-to-html tool to make it easy for people to write richtext
+    text-to-html tool to make it easy for people to write rich-text
     comments, descriptions, and etc.
 
-  * `lxml <http://lxml.de/>`_: nice xml and html processing for
-    python.
+  * `lxml <http://lxml.de/>`_: For xml and html processing in Python.
 
-* Media processing libraries
+* Media processing libraries:
 
   * `Python Imaging Library <http://www.pythonware.com/products/pil/>`_:
-    used to resize and otherwise convert images for display.
+    Used to re-size and otherwise convert images for display.
 
-  * `GStreamer <http://gstreamer.freedesktop.org/>`_: (Optional, for
-    video hosting sites only) Used to transcode video, and in the
-    future, probably audio too.
+  * `GStreamer <http://gstreamer.freedesktop.org/>`_: (*Optional.*),
+    Used to transcode video and audio. Only required if your
+    MediaGoblin instance will support audio and video.
 
-  * `chardet <http://pypi.python.org/pypi/chardet>`_: (Optional, for
-    ascii art hosting sites only)  Used to make ascii art thumbnails.
+  * `chardet <http://pypi.python.org/pypi/chardet>`_: (*Optional.*)
+    Used to make ascii art thumbnails. Only required if your
+    MediaGoblin instance will support ascii art.
 
-* Front end
+* Front end:
 
   * `JQuery <http://jquery.com/>`_: for groovy JavaScript things
 
 
+.. [#virtualenv-note] If you install MediaGoblin from distribution packages
+   you may not need to use virtualenv.
 
-What's where
-============
 
-After you've run checked out mediagoblin and followed the virtualenv
-instantiation instructions, you're faced with the following directory
-tree::
+Codebase Organization
+=====================
+
+After checking out the MediaGoblin code base, you'll find the
+following directory tree: ::
 
     mediagoblin/
     |- mediagoblin/              # source code
     |  |- tests/
     |  |- templates/
     |  |- auth/
+    #  |-                        # more directories here.
     |  \- submit/
     |- docs/                     # documentation
     |- devtools/                 # some scripts for developer convenience
-    |
-    |  # the below directories are installed into your virtualenv checkout
-    |
+
+All the code for GNU MediaGoblin is in the
+``mediagoblin/mediagoblin/`` directory.
+
+
+When you create the virtual environmnet (virtualenv), your
+``mediagoblin/`` folder will have the following directories: ::
+
     |- bin/                      # scripts
     |- develop-eggs/
     |- lib/                      # python libraries installed into your virtualenv
@@ -137,24 +147,30 @@ tree::
     |- user_dev/                 # sessions, etc
 
 
-As you can see, all the code for GNU MediaGoblin is in the
-``mediagoblin`` directory.
+Within the source directory, the following three files contain key
+components of the package:
 
-Here are some interesting files and what they do:
+``routing.py``
+   Maps url paths to views
 
-:routing.py: maps url paths to views
-:views.py:   views handle http requests
-:models.py:  holds the sqlalchemy schemas---these are the data structures
-             we're working with
+``views.py``
+   Handles http requests.
 
-You'll notice that there are several sub-directories: tests,
-templates, auth, submit, ...
+``models.py``
+   Holds the data model for SQLalchemy. These are all of the
+   MediaGoblin data structures.
 
-``tests`` holds the unit test code.
+There are several sub-directories of ``mediagoblin/``: tests,
+templates, auth, submit, and so forth. While you can discover the
+purpose of these modules from reading the code itself, in general:
 
-``templates`` holds all the templates for the output.
+- ``tests`` holds code for the unit tests.
 
-``auth`` and ``submit`` are modules that enacpsulate authentication
-and media item submission.  If you look in these directories, you'll
-see they have their own ``routing.py``, ``view.py``, and
-``models.py`` in addition to some other code.
+- ``templates`` holds all the templates for the output.
+
+- ``auth`` and ``submit`` are modules that enacpsulate authentication
+   and media item submission.
+
+If you look in most of these directories, you'll see they have their
+own ``routing.py``, ``view.py``, and ``models.py`` files in addition
+to other code.

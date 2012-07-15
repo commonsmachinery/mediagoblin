@@ -124,7 +124,7 @@ create "system account" or dedicated service user. Ensure that it is
 not possible to log in to your system with as this user.
 
 You should create a working directory for MediaGoblin. This document
-assumes your local git repository will be located at 
+assumes your local git repository will be located at
 ``/srv/mediagoblin.example.org/mediagoblin/`` for this documentation.
 Substitute your prefer ed local deployment path as needed.
 
@@ -135,6 +135,8 @@ user. To drop privileges to this user, run the following command::
 
 Where, "``[mediagoblin]``" is the username of the system user that will
 run MediaGoblin.
+
+.. _installing-with-virtualenv:
 
 Install MediaGoblin and Virtualenv
 ----------------------------------

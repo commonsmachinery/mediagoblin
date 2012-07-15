@@ -19,52 +19,50 @@
    :local:
 
 
-What is GNU MediaGoblin?
-========================
+What is GNU MediaGoblin
+=======================
 
 In 2008, a number of free software developers and activists gathered
 at the FSF to attempt to answer the question "What should software
 freedom look like on the participatory web?" Their answer, the
-`Franklin Street Statement`_ has lead to the development of
-`autonomo.us`_ community, and free software projects including
+`Franklin Street Statement`_, lead to the development of
+`autonomo.us`_ community and free software projects including
 `Identi.ca`_ and `Libre.fm`_.
+
+Identi.ca and Libre.fm address the need for micro-blogging and music
+sharing services by providing software that respect users' freedom and
+autonomy.  GNU MediaGoblin emerges from this milieu to create a
+platform for us to share photos in an environment that respects our
+freedom and independence.  In 0.2.0 MediaGoblin added support for
+presenting video media, and in 0.3.0 MediaGoblin added support for
+audio, with additional media types and presentation formats like
+podcasts as needed.
 
 .. _Franklin Street Statement: http://autonomo.us/2008/07/franklin-street-statement/
 .. _autonomo.us: http://autonomo.us/
 .. _identi.ca: http://identi.ca/
 .. _Libre.fm: http://libre.fm/
 
-Identi.ca and Libre.fm address the need for micro-blogging and music
-sharing services and software that respect users' freedom and
-autonomy.
-
-GNU MediaGoblin emerges from this milieu to create a platform for us to share
-photos, video and other media in an environment that respects our freedom and
-independence.  In the future MediaGoblin will provide tools to facilitate
-collaboration on media projects.
-
-
-Why Build GNU MediaGoblin?
-==========================
+Why Build GNU MediaGoblin
+=========================
 
 The Internet is designed---and works best---as a complex and endlessly
-resilient network.  When key services and media outlets are
-concentrated in centralized platforms, the network becomes less useful
-and increasingly fragile.  As always, the proprietary nature of these
+resilient network. With key services and media outlets concentrated in
+centralized platforms, the network becomes less useful and
+increasingly fragile. As always, the proprietary nature of these
 systems, hinders users ability to develop, extend, and understand
 their software; however, in the case of network services it also means
 that users must forfeit control of their data to the service
 providers.
 
-Therefore, we believe that network services must be federated to avoid
-centralization and that everyone ought to have control over their
-data.  In support of this, we've decided to help build the tools to
-make these kinds of services possible.  We hope you'll join us, both
-as users and as contributors.
+Therefore, we believe that federated network services are the only way
+to counter centralization and that everyone ought to have control over
+their data. In support of this, we've decided to help build the tools
+to make these kinds of services possible. We hope you'll join us,
+both as users and as contributors.
 
-
-Who Contributes to the Project?
-===============================
+Who Contributes to the Project
+==============================
 
 You do!
 
@@ -73,7 +71,6 @@ of other projects including: Libre.fm, GNU Social, Status.net, Miro,
 Miro Community, and OpenHatch among others.  We're programmers,
 musicians, writers, and painters.  We're friendly and dedicated to
 software and network freedom.
-
 
 How Can I Participate?
 ======================
@@ -89,8 +86,7 @@ GNU MediaGoblin software is released under an AGPLv3 license.
 
 See the ``COPYING`` file in the root of the source for details.
 
-
-Is MediaGoblin an official GNU project?  What does that mean?
+Is MedaGobilin an official GNU project?  What does that mean?
 =============================================================
 
 MediaGoblin is an official GNU project! This status means that we the
