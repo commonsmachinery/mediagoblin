@@ -19,8 +19,8 @@
    :local:
 
 
-What is GNU MediaGoblin
-=======================
+What is GNU MediaGoblin?
+========================
 
 In 2008, a number of free software developers and activists gathered
 at the FSF to attempt to answer the question "What should software
@@ -43,8 +43,8 @@ podcasts as needed.
 .. _identi.ca: http://identi.ca/
 .. _Libre.fm: http://libre.fm/
 
-Why Build GNU MediaGoblin
-=========================
+Why Build GNU MediaGoblin?
+==========================
 
 The Internet is designed---and works best---as a complex and endlessly
 resilient network. With key services and media outlets concentrated in
@@ -61,8 +61,8 @@ their data. In support of this, we've decided to help build the tools
 to make these kinds of services possible. We hope you'll join us,
 both as users and as contributors.
 
-Who Contributes to the Project
-==============================
+Who Contributes to the Project?
+===============================
 
 You do!
 
@@ -78,7 +78,6 @@ How Can I Participate?
 See `Get Involved <http://mediagoblin.org/join/>`_ on the website.  We
 eagerly look forward to seeing you!
 
-
 How is GNU MediaGoblin licensed?
 ================================
 
@@ -86,8 +85,8 @@ GNU MediaGoblin software is released under an AGPLv3 license.
 
 See the ``COPYING`` file in the root of the source for details.
 
-Is MedaGobilin an official GNU project?  What does that mean?
-=============================================================
+Is MedaGoblin an official GNU project?  What does that mean?
+============================================================
 
 MediaGoblin is an official GNU project! This status means that we the
 meet the GNU Project's rigorous standards for free software.  To find

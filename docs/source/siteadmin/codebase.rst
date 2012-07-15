@@ -126,7 +126,6 @@ following directory tree: ::
     |  |- tests/
     |  |- templates/
     |  |- auth/
-    #  |-                        # more directories here.
     |  \- submit/
     |- docs/                     # documentation
     |- devtools/                 # some scripts for developer convenience
