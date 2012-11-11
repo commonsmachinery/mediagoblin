@@ -27,9 +27,9 @@ from mediagoblin.db.mixin import UserMixin, MediaEntryMixin, MediaCommentMixin
 class MongoPK(object):
     """An alias for the _id primary key"""
     def __get__(self, instance, cls):
-       return instance['_id']   
+       return instance['_id']
     def __set__(self, instance, val):
-       instance['_id'] = val  
+       instance['_id'] = val
     def __delete__(self, instance):
        del instance['_id']
 
@@ -62,8 +62,10 @@ class User(Document, UserMixin):
        we'll change this to a boolean with a key of 'active' and have a
        separate field for a reason the user's been disabled if that's
        appropriate... email_verified is already separate, after all.)
-     - wants_comment_notification: The user has selected that they want to be 
+     - wants_comment_notification: The user has selected that they want to be
        notified when comments are posted on their media.
+     - license_preference: The license the user wants to use by default. It
+       should be selected on the upload form when they open it.
      - verification_key: If the user is awaiting email verification, the user
        will have to provide this key (which will be encoded in the presented
        URL) in order to confirm their email as active.
@@ -83,6 +85,7 @@ class User(Document, UserMixin):
         'email_verified': bool,
         'status': unicode,
         'wants_comment_notification': bool,
+        'license_preference': unicode,
         'verification_key': unicode,
         'is_admin': bool,
         'url': unicode,
@@ -230,7 +233,7 @@ class MediaEntry(Document, MediaEntryMixin):
             order = ASCENDING
         else:
             order = DESCENDING
-            
+
         return self.db.MediaComment.find({
                 'media_entry': self._id}).sort('created', order)
 

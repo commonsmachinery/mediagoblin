@@ -116,3 +116,15 @@ def create_processing_metadata_table(db):
 
     metadata_table.create()
     db.commit()
+
+@RegisterMigration(7, MIGRATIONS)
+def add_license_preference(db):
+    metadata = MetaData(bind=db.bind)
+
+    user_table = Table('core__users', metadata, autoload=True,
+            autoload_with=db.bind)
+
+    col = Column('license_preference', Unicode, default='')
+    col.create(user_table)
+    db.commit()
+
