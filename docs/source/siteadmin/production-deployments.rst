@@ -71,7 +71,7 @@ as a separate process.
 Build an :ref:`init script <init-script>` around the following
 command::
 
-    CELERY_CONFIG_MODULE=mediagoblin.init.celery.from_celery ./bin/celeryd
+    CELERY_CONFIG_MODULE=mediagoblin.init.celery.from_celery /usr/bin/celeryd
 
 Modify your existing MediaGoblin and application init scripts, if
 necessary, to prevent them from starting their own ``celeryd``

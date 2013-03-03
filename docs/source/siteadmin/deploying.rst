@@ -164,7 +164,7 @@ Clone the MediaGoblin repository::
 And set up the in-package virtualenv::
 
     cd mediagoblin
-    (virtualenv --system-site-packages . || virtualenv .) && ./bin/python setup.py develop
+    (virtualenv --system-site-packages . || virtualenv .) && /us/bin/env python setup.py develop
 
 .. note::
 
@@ -183,13 +183,13 @@ your preferred method.
 Assuming you are going to deploy with FastCGI, you should also install
 flup::
 
-    ./bin/easy_install flup
+    /usr/bin/easy_install flup
 
 This concludes the initial configuration of the development
 environment. In the future, when you update your
 codebase, you should also run::
 
-    ./bin/python setup.py develop --upgrade && ./bin/gmg dbupdate
+    /usr/bin/env python setup.py develop --upgrade && ./bin/gmg dbupdate
 
 Note: If you are running an active site, depending on your server
 configuration, you may need to stop it first or the dbupdate command
