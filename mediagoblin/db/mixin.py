@@ -83,12 +83,12 @@ class MediaEntryMixin(object):
         #Is already a slug assigned? Check if it is valid
         if self.slug:
             self.slug = slugify(self.slug)
-  
+
         # otherwise, try to use the title.
         elif self.title:
             # assign slug based on title
             self.slug = slugify(self.title)
-     
+
         # We don't want any empty string slugs
         if self.slug == u"":
             self.slug = None
@@ -98,11 +98,11 @@ class MediaEntryMixin(object):
         # so just return... we're not going to force one.
         if not self.slug:
             return  # giving up!
-  
+
         # Otherwise, let's see if this is unique.
         if check_media_slug_used(self.uploader, self.slug, self.id):
             # It looks like it's being used... lame.
-        
+
             # Can we just append the object's id to the end?
             if self.id:
                 slug_with_id = u"%s-%s" % (self.slug, self.id)
@@ -110,7 +110,7 @@ class MediaEntryMixin(object):
                                              slug_with_id, self.id):
                     self.slug = slug_with_id
                     return  # success!
-        
+
             # okay, still no success;
             # let's whack junk on there till it's unique.
             self.slug += '-' + uuid.uuid4().hex[:4]
@@ -221,6 +221,33 @@ class MediaEntryMixin(object):
             label = re.sub('(.)([A-Z][a-z]+)', r'\1 \2', key)
             yield label.replace('EXIF', '').replace('Image', ''), exif_all[key]
 
+    def exif_display_data_short(self):
+        """Display a very short practical version of exif info"""
+        import time, datetime
+        if not self.media_data:
+            return
+        exif_all = self.media_data.get("exif_all")
+        # format date taken
+        takendate = datetime.datetime.strptime(
+            exif_all['Image DateTimeOriginal']['printable'],
+            '%Y:%m:%d %H:%M:%S').date()
+        taken = takendate.strftime('%B %d %Y')
+        fnum = str(exif_all['EXIF FNumber']['printable']).split('/')
+        # calculate aperture
+        if len(fnum) == 2:
+            aperture = "f/%.1f" % (float(fnum[0])/float(fnum[1]))
+        elif fnum[0] != 'None':
+            aperture = "f/%s" % (fnum[0])
+        else:
+            aperture = None
+        return {
+            "Camera" : exif_all['Image Model']['printable'],
+            "Exposure" : '%s sec' % exif_all['EXIF ExposureTime']['printable'],
+            "Aperture" : aperture,
+            "ISO" : exif_all['EXIF ISOSpeedRatings']['printable'],
+            "Focal Length" : '%s mm' % exif_all['EXIF FocalLength']['printable'],
+            "Date Taken" : taken,
+        }
 
 class MediaCommentMixin(object):
     @property
