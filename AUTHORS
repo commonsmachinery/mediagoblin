@@ -16,6 +16,7 @@ Thank you!
 * Alon Levy
 * Alex Camelio
 * András Veres-Szentkirályi
+* Artem Popov (Commons Machinery)
 * Bassam Kurdali
 * Bernhard Keller
 * Brandon Invergo
@@ -90,3 +91,6 @@ We also are currently borrowing an image in
 mediagoblin/static/images/media_thumbs/image.png from the wonderful
 people at http://tango.freedesktop.org/ which is in the public
 domain... thanks Tango folks!
+
+SVG thumbnail under mediagoblin/static/images/media_thumbs/svg.png is drawn
+by Andrew Fitzsimon.
